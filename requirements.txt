@@ -1,1 +1,3 @@
-playsound==1.3.0
+# Runtime: stdlib only on Windows (uses winsound for audio).
+# Optional cross-platform audio fallback for macOS/Linux:
+# playsound==1.3.0
