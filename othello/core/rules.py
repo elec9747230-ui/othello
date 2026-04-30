@@ -44,3 +44,37 @@ def legal_moves(board: Board, color: Color) -> list[Move]:
                 if flips_for(board, m, color):
                     moves.append(m)
     return moves
+
+
+def apply_move(board: Board, move: Move, color: Color) -> Board:
+    flips = flips_for(board, move, color)
+    if not flips:
+        raise ValueError(f"Illegal move {move} for {color.name}")
+    new_board = board.copy()
+    new_board[move.row, move.col] = color
+    for r, c in flips:
+        new_board[r, c] = color
+    return new_board
+
+
+def score(board: Board) -> tuple[int, int]:
+    black = white = 0
+    for _, _, c in board.cells():
+        if c is Color.BLACK:
+            black += 1
+        elif c is Color.WHITE:
+            white += 1
+    return black, white
+
+
+def is_terminal(board: Board) -> bool:
+    return not legal_moves(board, Color.BLACK) and not legal_moves(board, Color.WHITE)
+
+
+def winner(board: Board) -> Color | None:
+    b, w = score(board)
+    if b > w:
+        return Color.BLACK
+    if w > b:
+        return Color.WHITE
+    return None
