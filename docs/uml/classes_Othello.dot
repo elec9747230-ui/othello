@@ -1,0 +1,33 @@
+digraph "classes_Othello" {
+rankdir=BT
+charset="utf-8"
+"othello.ai.alphabeta.AlphaBetaAI" [color="black", fontcolor="black", label=<{AlphaBetaAI|depth : int<br ALIGN="LEFT"/>name : str<br ALIGN="LEFT"/>|select_move(state: GameState): Move<br ALIGN="LEFT"/>}>, shape="record", style="solid"];
+"othello.core.board.Board" [color="black", fontcolor="black", label=<{Board|size : int<br ALIGN="LEFT"/>|cells(): Iterator[tuple[int, int, Color]]<br ALIGN="LEFT"/>copy(): 'Board'<br ALIGN="LEFT"/>in_bounds(r: int, c: int): bool<br ALIGN="LEFT"/>}>, shape="record", style="solid"];
+"othello.ui.board_view.BoardView" [color="black", fontcolor="black", label=<{BoardView|canvas : Canvas<br ALIGN="LEFT"/>is_animating : bool<br ALIGN="LEFT"/>on_click : Callable[[int, int], None]<br ALIGN="LEFT"/>size : int<br ALIGN="LEFT"/>|animate_move(new_board: Board, placed: Move, flipped: list[tuple[int, int]], on_done: Callable[[], None]): None<br ALIGN="LEFT"/>render(board: Board, hints: Iterable[Move]): None<br ALIGN="LEFT"/>}>, shape="record", style="solid"];
+"othello.core.board.Color" [color="black", fontcolor="black", label=<{Color|name<br ALIGN="LEFT"/>|opponent(): 'Color'<br ALIGN="LEFT"/>}>, shape="record", style="solid"];
+"othello.ui.game_screen.GameScreen" [color="black", fontcolor="black", label=<{GameScreen|ai : NoneType<br ALIGN="LEFT"/>ai_color : Color \| None<br ALIGN="LEFT"/>app<br ALIGN="LEFT"/>board_view<br ALIGN="LEFT"/>config_data : dict<br ALIGN="LEFT"/>history_text : Text<br ALIGN="LEFT"/>score_label : Label<br ALIGN="LEFT"/>state<br ALIGN="LEFT"/>turn_label : Label<br ALIGN="LEFT"/>|}>, shape="record", style="solid"];
+"othello.core.game.GameState" [color="black", fontcolor="black", label=<{GameState|board<br ALIGN="LEFT"/>current : BLACK, WHITE<br ALIGN="LEFT"/>history : list[HistoryEntry]<br ALIGN="LEFT"/>|is_over(): bool<br ALIGN="LEFT"/>legal_moves(): list[Move]<br ALIGN="LEFT"/>must_pass(): bool<br ALIGN="LEFT"/>play(move: Move): None<br ALIGN="LEFT"/>score(): tuple[int, int]<br ALIGN="LEFT"/>undo(): None<br ALIGN="LEFT"/>winner(): Color \| None<br ALIGN="LEFT"/>}>, shape="record", style="solid"];
+"othello.ai.greedy.GreedyAI" [color="black", fontcolor="black", label=<{GreedyAI|name : str<br ALIGN="LEFT"/>|select_move(state: GameState): Move<br ALIGN="LEFT"/>}>, shape="record", style="solid"];
+"othello.core.game.HistoryEntry" [color="black", fontcolor="black", label=<{HistoryEntry|board_before<br ALIGN="LEFT"/>color_to_move<br ALIGN="LEFT"/>move<br ALIGN="LEFT"/>|}>, shape="record", style="solid"];
+"othello.ui.menu_screen.MenuScreen" [color="black", fontcolor="black", label=<{MenuScreen|ai_frame : Labelframe<br ALIGN="LEFT"/>ai_var : StringVar<br ALIGN="LEFT"/>app<br ALIGN="LEFT"/>color_frame : Labelframe<br ALIGN="LEFT"/>color_var : StringVar<br ALIGN="LEFT"/>mode_var : StringVar<br ALIGN="LEFT"/>size_var : IntVar<br ALIGN="LEFT"/>|}>, shape="record", style="solid"];
+"othello.ai.minimax.MinimaxAI" [color="black", fontcolor="black", label=<{MinimaxAI|depth : int<br ALIGN="LEFT"/>name : str<br ALIGN="LEFT"/>|select_move(state: GameState): Move<br ALIGN="LEFT"/>}>, shape="record", style="solid"];
+"othello.core.board.Move" [color="black", fontcolor="black", label=<{Move|col : int<br ALIGN="LEFT"/>is_pass : bool<br ALIGN="LEFT"/>row : int<br ALIGN="LEFT"/>|}>, shape="record", style="solid"];
+"othello.ui.app.OthelloApp" [color="black", fontcolor="black", label=<{OthelloApp|current_screen : tk.Frame \| None<br ALIGN="LEFT"/>root : Tk<br ALIGN="LEFT"/>|show_game(config: dict[str, Any]): None<br ALIGN="LEFT"/>show_menu(): None<br ALIGN="LEFT"/>}>, shape="record", style="solid"];
+"othello.ai.random_ai.RandomAI" [color="black", fontcolor="black", label=<{RandomAI|name : str<br ALIGN="LEFT"/>|select_move(state: GameState): Move<br ALIGN="LEFT"/>}>, shape="record", style="solid"];
+"othello.ai.base.Strategy" [color="black", fontcolor="black", label=<{Strategy|name : str<br ALIGN="LEFT"/>|<I>select_move</I>(state: GameState): Move<br ALIGN="LEFT"/>}>, shape="record", style="solid"];
+"othello.ai.alphabeta.AlphaBetaAI" -> "othello.ai.base.Strategy" [arrowhead="empty", arrowtail="none"];
+"othello.ai.greedy.GreedyAI" -> "othello.ai.base.Strategy" [arrowhead="empty", arrowtail="none"];
+"othello.ai.minimax.MinimaxAI" -> "othello.ai.base.Strategy" [arrowhead="empty", arrowtail="none"];
+"othello.ai.random_ai.RandomAI" -> "othello.ai.base.Strategy" [arrowhead="empty", arrowtail="none"];
+"othello.core.game.HistoryEntry" -> "othello.core.board.Board" [arrowhead="vee", arrowtail="none", fontcolor="green", label="board_before", style="solid"];
+"othello.core.game.HistoryEntry" -> "othello.core.board.Color" [arrowhead="vee", arrowtail="none", fontcolor="green", label="color_to_move", style="solid"];
+"othello.core.game.HistoryEntry" -> "othello.core.board.Move" [arrowhead="vee", arrowtail="none", fontcolor="green", label="move", style="solid"];
+"othello.ui.game_screen.GameScreen" -> "othello.core.game.GameState" [arrowhead="vee", arrowtail="none", fontcolor="green", label="state", style="solid"];
+"othello.core.game.GameState" -> "othello.core.game.HistoryEntry" [arrowhead="vee", arrowtail="none", fontcolor="green", label="history", style="solid"];
+"othello.ai.alphabeta.AlphaBetaAI" -> "othello.ui.game_screen.GameScreen" [arrowhead="diamond", arrowtail="none", fontcolor="green", label="ai", style="solid"];
+"othello.ai.greedy.GreedyAI" -> "othello.ui.game_screen.GameScreen" [arrowhead="diamond", arrowtail="none", fontcolor="green", label="ai", style="solid"];
+"othello.ai.minimax.MinimaxAI" -> "othello.ui.game_screen.GameScreen" [arrowhead="diamond", arrowtail="none", fontcolor="green", label="ai", style="solid"];
+"othello.ai.random_ai.RandomAI" -> "othello.ui.game_screen.GameScreen" [arrowhead="diamond", arrowtail="none", fontcolor="green", label="ai", style="solid"];
+"othello.core.board.Board" -> "othello.core.game.GameState" [arrowhead="diamond", arrowtail="none", fontcolor="green", label="board", style="solid"];
+"othello.ui.board_view.BoardView" -> "othello.ui.game_screen.GameScreen" [arrowhead="diamond", arrowtail="none", fontcolor="green", label="board_view", style="solid"];
+}

@@ -1,0 +1,82 @@
+@startuml packages_Othello
+set namespaceSeparator none
+package "othello" as othello {
+}
+package "othello.ai" as othello.ai {
+}
+package "othello.ai.alphabeta" as othello.ai.alphabeta {
+}
+package "othello.ai.base" as othello.ai.base {
+}
+package "othello.ai.evaluation" as othello.ai.evaluation {
+}
+package "othello.ai.greedy" as othello.ai.greedy {
+}
+package "othello.ai.minimax" as othello.ai.minimax {
+}
+package "othello.ai.random_ai" as othello.ai.random_ai {
+}
+package "othello.core" as othello.core {
+}
+package "othello.core.board" as othello.core.board {
+}
+package "othello.core.game" as othello.core.game {
+}
+package "othello.core.rules" as othello.core.rules {
+}
+package "othello.persistence" as othello.persistence {
+}
+package "othello.ui" as othello.ui {
+}
+package "othello.ui.app" as othello.ui.app {
+}
+package "othello.ui.board_view" as othello.ui.board_view {
+}
+package "othello.ui.game_screen" as othello.ui.game_screen {
+}
+package "othello.ui.menu_screen" as othello.ui.menu_screen {
+}
+package "othello.ui.sound" as othello.ui.sound {
+}
+othello.ai.alphabeta --> othello.ai.base
+othello.ai.alphabeta --> othello.ai.evaluation
+othello.ai.alphabeta --> othello.core.board
+othello.ai.alphabeta --> othello.core.game
+othello.ai.alphabeta --> othello.core.rules
+othello.ai.base --> othello.core.board
+othello.ai.base --> othello.core.game
+othello.ai.evaluation --> othello.core.board
+othello.ai.evaluation --> othello.core.rules
+othello.ai.greedy --> othello.ai.base
+othello.ai.greedy --> othello.core.board
+othello.ai.greedy --> othello.core.game
+othello.ai.greedy --> othello.core.rules
+othello.ai.minimax --> othello.ai.base
+othello.ai.minimax --> othello.ai.evaluation
+othello.ai.minimax --> othello.core.board
+othello.ai.minimax --> othello.core.game
+othello.ai.minimax --> othello.core.rules
+othello.ai.random_ai --> othello.ai.base
+othello.ai.random_ai --> othello.core.board
+othello.ai.random_ai --> othello.core.game
+othello.core.game --> othello.core.board
+othello.core.game --> othello.core.rules
+othello.core.rules --> othello.core.board
+othello.persistence --> othello.core.board
+othello.persistence --> othello.core.game
+othello.ui.app --> othello.ui.game_screen
+othello.ui.app --> othello.ui.menu_screen
+othello.ui.board_view --> othello.core.board
+othello.ui.game_screen --> othello.ai.alphabeta
+othello.ui.game_screen --> othello.ai.greedy
+othello.ui.game_screen --> othello.ai.minimax
+othello.ui.game_screen --> othello.ai.random_ai
+othello.ui.game_screen --> othello.core.board
+othello.ui.game_screen --> othello.core.game
+othello.ui.game_screen --> othello.core.rules
+othello.ui.game_screen --> othello.persistence
+othello.ui.game_screen --> othello.ui
+othello.ui.game_screen --> othello.ui.board_view
+othello.ui.game_screen --> othello.ui.sound
+othello.ui.menu_screen --> othello.persistence
+@enduml

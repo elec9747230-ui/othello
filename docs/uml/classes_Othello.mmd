@@ -1,0 +1,104 @@
+classDiagram
+  class AlphaBetaAI {
+    depth : int
+    name : str
+    select_move(state: GameState) Move
+  }
+  class Board {
+    size : int
+    cells() Iterator[tuple[int, int, Color]]
+    copy() 'Board'
+    in_bounds(r: int, c: int) bool
+  }
+  class BoardView {
+    canvas : Canvas
+    is_animating : bool
+    on_click : Callable[[int, int], None]
+    size : int
+    animate_move(new_board: Board, placed: Move, flipped: list[tuple[int, int]], on_done: Callable[[], None]) None
+    render(board: Board, hints: Iterable[Move]) None
+  }
+  class Color {
+    name
+    opponent() 'Color'
+  }
+  class GameScreen {
+    ai : NoneType
+    ai_color : Color | None
+    app
+    board_view
+    config_data : dict
+    history_text : Text
+    score_label : Label
+    state
+    turn_label : Label
+  }
+  class GameState {
+    board
+    current : BLACK, WHITE
+    history : list[HistoryEntry]
+    is_over() bool
+    legal_moves() list[Move]
+    must_pass() bool
+    play(move: Move) None
+    score() tuple[int, int]
+    undo() None
+    winner() Color | None
+  }
+  class GreedyAI {
+    name : str
+    select_move(state: GameState) Move
+  }
+  class HistoryEntry {
+    board_before
+    color_to_move
+    move
+  }
+  class MenuScreen {
+    ai_frame : Labelframe
+    ai_var : StringVar
+    app
+    color_frame : Labelframe
+    color_var : StringVar
+    mode_var : StringVar
+    size_var : IntVar
+  }
+  class MinimaxAI {
+    depth : int
+    name : str
+    select_move(state: GameState) Move
+  }
+  class Move {
+    col : int
+    is_pass : bool
+    row : int
+  }
+  class OthelloApp {
+    current_screen : tk.Frame | None
+    root : Tk
+    show_game(config: dict[str, Any]) None
+    show_menu() None
+  }
+  class RandomAI {
+    name : str
+    select_move(state: GameState) Move
+  }
+  class Strategy {
+    name : str
+    select_move(state: GameState)* Move
+  }
+  AlphaBetaAI --|> Strategy
+  GreedyAI --|> Strategy
+  MinimaxAI --|> Strategy
+  RandomAI --|> Strategy
+  HistoryEntry --> Board : board_before
+  HistoryEntry --> Color : color_to_move
+  HistoryEntry --> Move : move
+  GameScreen --> GameState : state
+  GameState --> HistoryEntry : history
+  AlphaBetaAI --* GameScreen : ai
+  GreedyAI --* GameScreen : ai
+  MinimaxAI --* GameScreen : ai
+  RandomAI --* GameScreen : ai
+  Board --* GameState : board
+  BoardView --* GameScreen : board_view

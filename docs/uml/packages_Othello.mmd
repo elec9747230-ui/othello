@@ -1,0 +1,80 @@
+classDiagram
+  class othello {
+  }
+  class ai {
+  }
+  class alphabeta {
+  }
+  class base {
+  }
+  class evaluation {
+  }
+  class greedy {
+  }
+  class minimax {
+  }
+  class random_ai {
+  }
+  class core {
+  }
+  class board {
+  }
+  class game {
+  }
+  class rules {
+  }
+  class persistence {
+  }
+  class ui {
+  }
+  class app {
+  }
+  class board_view {
+  }
+  class game_screen {
+  }
+  class menu_screen {
+  }
+  class sound {
+  }
+  alphabeta --> base
+  alphabeta --> evaluation
+  alphabeta --> board
+  alphabeta --> game
+  alphabeta --> rules
+  base --> board
+  base --> game
+  evaluation --> board
+  evaluation --> rules
+  greedy --> base
+  greedy --> board
+  greedy --> game
+  greedy --> rules
+  minimax --> base
+  minimax --> evaluation
+  minimax --> board
+  minimax --> game
+  minimax --> rules
+  random_ai --> base
+  random_ai --> board
+  random_ai --> game
+  game --> board
+  game --> rules
+  rules --> board
+  persistence --> board
+  persistence --> game
+  app --> game_screen
+  app --> menu_screen
+  board_view --> board
+  game_screen --> alphabeta
+  game_screen --> greedy
+  game_screen --> minimax
+  game_screen --> random_ai
+  game_screen --> board
+  game_screen --> game
+  game_screen --> rules
+  game_screen --> persistence
+  game_screen --> ui
+  game_screen --> board_view
+  game_screen --> sound
+  menu_screen --> persistence
